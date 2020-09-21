@@ -8,10 +8,12 @@ let List = {
         table: null,
         bodyProducts: null,
         quantityProducts: null,
-        inputQuantity: null
+        inputQuantity: null,
+        btnStartSearch: null,
+        inputSearchArticle: null,
     },
 
-    init(){
+    init() {
         this.html.table = document.querySelector('.table-products');
         this.html.bodyProducts = this.html.table.querySelector('.body-products');
 
@@ -48,7 +50,7 @@ let List = {
     },
     quantity() {
         List.html.inputQuantity = List.html.bodyProducts.querySelectorAll('.quantity');
-        for (let inputQuantityValue of List.html.inputQuantity ) {
+        for (let inputQuantityValue of List.html.inputQuantity) {
             inputQuantityValue.addEventListener('change', function (event) {
                 let productBasket = event.target.closest('.product');
                 let article = productBasket.querySelector('.code-product').innerHTML;
@@ -73,6 +75,20 @@ let List = {
                 MainBasket.calculateAndDrawTotal();
             })
         }
+    },
+    searchArticle() {
+        List.html.btnStartSearch = document.querySelector('.btn-search-article');
+        List.html.btnStartSearch.addEventListener('click',  searchArticleBtnClick);//кнопка старта поиска
+
+        List.html.inputSearchArticle = document.querySelector('.input-search-article');
+        List.html.inputSearchArticle.addEventListener('change', searchArticleBtnClick)
+
+
+        function searchArticleBtnClick() {
+            console.log(List.html.inputSearchArticle.value);
+        }
+
+
     }
 
 
@@ -86,41 +102,50 @@ let MainBasket = {
         resultTotalSumView: null,
     },
 
-    removeProduct(article){
-       delete MainBasket.basket[article];
+    removeProduct(article) {
+        delete MainBasket.basket[article];
 
-       },
+    },
 
     calculateAndDrawTotal() {
         let resultTotalSumView = document.querySelector('.total-price');
 
         let sum = 0;
 
-        for(let prop in MainBasket.basket) {
+        for (let prop in MainBasket.basket) {
             let indexProduct = MainBasket.basket[prop];
 
             sum += indexProduct.subtotal;
 
         }
 
-       resultTotalSumView.value = sum + "$";
+        resultTotalSumView.value = sum + "$";
 
 
     },
-    initBasket(){
+    initBasket() {
         this.html.table = document.querySelector('.table-products-basket');
         this.html.bodyProducts = this.html.table.querySelector('.body-products-basket');
-
 
 
     },
 
 
     drawTable() {
+        isEmpty(MainBasket.basket);
+
+        function isEmpty(basket) {
+            for (let prop in basket) {
+                return false;
+            }
+            MainBasket.html.bodyProducts.insertAdjacentHTML('beforeend', `<h5 class="notification-select-products mt-4">Корзина пуста. Выберите товары.</h5>`)
+            return true;
+        }
 
         let rowIndex = 0;
 
-        for(let prop in MainBasket.basket) {
+        for (let prop in MainBasket.basket) {
+
             let indexProduct = MainBasket.basket[prop];
 
             rowIndex++;
@@ -141,8 +166,6 @@ let MainBasket = {
 
         finalTotalSumInput.value = document.querySelector('.total-price').value;
 
-
-
     },
     deleteTableBasket() {
         MainBasket.html.bodyProducts.innerHTML = '';
@@ -153,6 +176,7 @@ let MainBasket = {
 
 
 List.init();
+List.searchArticle();
 MainBasket.initBasket();
 
 
@@ -162,6 +186,7 @@ $('#staticBackdrop').on('show.bs.modal', function (e) {
 $('#staticBackdrop').on('hide.bs.modal', function (e) {
     MainBasket.deleteTableBasket()
 })
+
 
 
 
