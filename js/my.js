@@ -32,8 +32,7 @@ let List = {
 
                 let row = document.createElement('TR');
                 row.classList.add('product');
-                row.setAttribute('data-code', `${indexProduct.code}`)
-                row.innerHTML = `<th scope="row" class="index">${i}</th>
+                row.innerHTML = `<th scope="row" class="index">${i + 1}</th>
                     <td class="name-product">${indexProduct.name}</td>
                     <td class="code-product">${indexProduct.code}</td>
                     <td class="price-product">${indexProduct.price}</td>
@@ -46,51 +45,9 @@ let List = {
                 List.html.bodyProducts.append(indexProduct.htmlElement);
             });
 
-            List.createCardsProduct();
             List.quantity();
 
         })
-    },
-    createCardsProduct(valueForSearch = '') {
-
-
-
-        /*List.allProducts.filter(function(item) {
-            if (item.code === valueForSearch) {
-
-                let resultProduct = document.querySelector('.code-product');
-                let resProdHtml = +resultProduct.innerHTML;
-
-                if (item.code === resProdHtml ) {
-                    let parentProduct = resultProduct.closest('.product');
-
-                    parentProduct.classList.add('res');
-
-                }
-
-            }
-            let allPr = document.querySelectorAll('.product');
-            for (let item of allPr) {
-                if (!item.matches('.res')) {
-                    item.classList.add('bla-bla');
-                }
-                /!*item.setAttribute('hidden', 'hidden')*!/
-
-
-            }
-        });*/
-
-
-
-        /*for (let i = 0; i < this.allProducts.length; i++) {
-
-            let indexProduct = this.allProducts[i];
-
-            this.html.bodyProducts.append(indexProduct.htmlElement);
-
-        }
-*/
-
     },
     quantity() {
         List.html.inputQuantity = List.html.bodyProducts.querySelectorAll('.quantity');
@@ -121,41 +78,32 @@ let List = {
         }
     },
     searchArticle() {
-
-
         List.html.inputSearchArticle = document.querySelector('.input-search-article');
         List.html.inputSearchArticle.addEventListener('input', searchArticle);
 
-
-
-
         function searchArticle(event) {
             event.preventDefault()
-            let valueForSearch = +List.html.inputSearchArticle.value;
+            let valueForSearch = List.html.inputSearchArticle.value;
 
-            List.allProducts.forEach(function(product) {
+            List.allProducts.forEach(function (product) {
 
+                let productCode = product.code.toString();
 
-                product.htmlElement.classList.remove('found');
-                product.htmlElement.classList.remove('bla-bla');
+                product.htmlElement.classList.remove('found-product');
+                product.htmlElement.classList.remove('d-none');
 
-                if (product.code === valueForSearch || valueForSearch === 0) {
+                if (productCode.includes(valueForSearch)) {
 
-                    product.htmlElement.classList.add('found');
+                    product.htmlElement.classList.add('found-product');
 
                 } else {
-                    product.htmlElement.classList.add('bla-bla');
+                    product.htmlElement.classList.add('d-none');
                 }
 
             });
-
         }
 
-
-
-
     }
-
 
 }
 
@@ -183,15 +131,12 @@ let MainBasket = {
             sum += indexProduct.subtotal;
 
         }
-
         resultTotalSumView.value = sum + "$";
-
 
     },
     initBasket() {
         this.html.table = document.querySelector('.table-products-basket');
         this.html.bodyProducts = this.html.table.querySelector('.body-products-basket');
-
 
     },
 
@@ -208,13 +153,11 @@ let MainBasket = {
         }
 
         let rowIndex = 0;
-
         for (let prop in MainBasket.basket) {
 
             let indexProduct = MainBasket.basket[prop];
 
             rowIndex++;
-
             let template = `<tr class="product">
                 <th scope="row" class="index">${rowIndex}</th>
                 <td class="name-product">${indexProduct.name}</td>
