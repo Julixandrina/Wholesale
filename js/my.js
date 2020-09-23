@@ -99,12 +99,9 @@ let List = {
                 } else {
                     product.htmlElement.classList.add('d-none');
                 }
-
             });
         }
-
     }
-
 }
 
 let MainBasket = {
@@ -113,6 +110,8 @@ let MainBasket = {
         table: null,
         bodyProducts: null,
         resultTotalSumView: null,
+        headTableModal: null,
+        btnSubmitBasketModal: null,
     },
 
     removeProduct(article) {
@@ -137,6 +136,8 @@ let MainBasket = {
     initBasket() {
         this.html.table = document.querySelector('.table-products-basket');
         this.html.bodyProducts = this.html.table.querySelector('.body-products-basket');
+        this.html.headTableModal = this.html.table.querySelector('.head-table-modal');
+        this.html.btnSubmitBasketModal = document.querySelector('.btn-submit-basket-modal');
 
     },
 
@@ -146,11 +147,16 @@ let MainBasket = {
 
         function isEmpty(basket) {
             for (let prop in basket) {
+                MainBasket.html.headTableModal.classList.remove('d-none');
+                MainBasket.html.btnSubmitBasketModal.classList.remove('disabled');
                 return false;
             }
+            MainBasket.html.headTableModal.classList.add('d-none');
+            MainBasket.html.btnSubmitBasketModal.classList.add('disabled');
             MainBasket.html.bodyProducts.insertAdjacentHTML('beforeend', `<h5 class="notification-select-products mt-4">Корзина пуста. Выберите товары.</h5>`)
             return true;
         }
+
 
         let rowIndex = 0;
         for (let prop in MainBasket.basket) {
@@ -179,7 +185,6 @@ let MainBasket = {
         MainBasket.html.bodyProducts.innerHTML = '';
 
     }
-
 }
 
 
