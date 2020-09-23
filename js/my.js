@@ -11,6 +11,7 @@ let List = {
         inputQuantity: null,
         btnStartSearch: null,
         inputSearchArticle: null,
+        product: null,
     },
 
     init() {
@@ -19,12 +20,30 @@ let List = {
 
         fetch('data.json').then((response) => response.json()).then(function (responseObject) {
 
-            responseObject.data.forEach(function (product) {
-                List.allProducts.push({
+            responseObject.data.forEach(function (product, i) {
+
+                let indexProduct = {
                     name: product[0],
                     code: product[1],
                     price: product[2].replace(new RegExp('^0+'), ''),
-                })
+                    htmlElement: null
+                }
+
+
+                let row = document.createElement('TR');
+                row.classList.add('product');
+                row.setAttribute('data-code', `${indexProduct.code}`)
+                row.innerHTML = `<th scope="row" class="index">${i}</th>
+                    <td class="name-product">${indexProduct.name}</td>
+                    <td class="code-product">${indexProduct.code}</td>
+                    <td class="price-product">${indexProduct.price}</td>
+                    <td class="quantity-product"><input class="quantity" type="number"  min="0" value="0"></td>`;
+
+                indexProduct.htmlElement = row;
+
+                List.allProducts.push(indexProduct);
+
+                List.html.bodyProducts.append(indexProduct.htmlElement);
             });
 
             List.createCardsProduct();
@@ -32,21 +51,46 @@ let List = {
 
         })
     },
-    createCardsProduct() {
+    createCardsProduct(valueForSearch = '') {
 
-        for (let i = 0; i < this.allProducts.length; i++) {
+
+
+        /*List.allProducts.filter(function(item) {
+            if (item.code === valueForSearch) {
+
+                let resultProduct = document.querySelector('.code-product');
+                let resProdHtml = +resultProduct.innerHTML;
+
+                if (item.code === resProdHtml ) {
+                    let parentProduct = resultProduct.closest('.product');
+
+                    parentProduct.classList.add('res');
+
+                }
+
+            }
+            let allPr = document.querySelectorAll('.product');
+            for (let item of allPr) {
+                if (!item.matches('.res')) {
+                    item.classList.add('bla-bla');
+                }
+                /!*item.setAttribute('hidden', 'hidden')*!/
+
+
+            }
+        });*/
+
+
+
+        /*for (let i = 0; i < this.allProducts.length; i++) {
+
             let indexProduct = this.allProducts[i];
 
-            let template = `<tr class="product">
-                <th scope="row" class="index">${i}</th>
-                <td class="name-product">${indexProduct.name}</td>
-                <td class="code-product">${indexProduct.code}</td>
-                <td class="price-product">${indexProduct.price}</td>
-                <td class="quantity-product"><input class="quantity" type="number"  min="0" value="0"></td>
-            </tr>`;
+            this.html.bodyProducts.append(indexProduct.htmlElement);
 
-            this.html.bodyProducts.insertAdjacentHTML('beforeend', `${template}`)
         }
+*/
+
     },
     quantity() {
         List.html.inputQuantity = List.html.bodyProducts.querySelectorAll('.quantity');
@@ -77,16 +121,37 @@ let List = {
         }
     },
     searchArticle() {
-        List.html.btnStartSearch = document.querySelector('.btn-search-article');
-        List.html.btnStartSearch.addEventListener('click',  searchArticleBtnClick);//кнопка старта поиска
+
 
         List.html.inputSearchArticle = document.querySelector('.input-search-article');
-        List.html.inputSearchArticle.addEventListener('change', searchArticleBtnClick)
+        List.html.inputSearchArticle.addEventListener('input', searchArticle);
 
 
-        function searchArticleBtnClick() {
-            console.log(List.html.inputSearchArticle.value);
+
+
+        function searchArticle(event) {
+            event.preventDefault()
+            let valueForSearch = +List.html.inputSearchArticle.value;
+
+            List.allProducts.forEach(function(product) {
+
+
+                product.htmlElement.classList.remove('found');
+                product.htmlElement.classList.remove('bla-bla');
+
+                if (product.code === valueForSearch || valueForSearch === 0) {
+
+                    product.htmlElement.classList.add('found');
+
+                } else {
+                    product.htmlElement.classList.add('bla-bla');
+                }
+
+            });
+
         }
+
+
 
 
     }
