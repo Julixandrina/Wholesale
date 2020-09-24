@@ -1,6 +1,4 @@
 'use strict'
-
-
 let List = {
     allProducts: [],
 
@@ -37,7 +35,6 @@ let List = {
                     <td class="code-product">${indexProduct.code}</td>
                     <td class="price-product">${indexProduct.price}</td>
                     <td class="quantity-product"><input class="quantity" type="number"  min="0" value="0"></td>`;
-
                 indexProduct.htmlElement = row;
 
                 List.allProducts.push(indexProduct);
@@ -92,7 +89,7 @@ let List = {
                 product.htmlElement.classList.remove('found-product');
                 product.htmlElement.classList.remove('d-none');
 
-                if (productCode.includes(valueForSearch)) {
+                if (productCode.includes(valueForSearch) || product.name.includes(valueForSearch)) {
 
                     product.htmlElement.classList.add('found-product');
 
@@ -112,6 +109,9 @@ let MainBasket = {
         resultTotalSumView: null,
         headTableModal: null,
         btnSubmitBasketModal: null,
+        inputNameCompany: null,
+        inputAddressCompany: null,
+        inputTelCompany: null,
     },
 
     removeProduct(article) {
@@ -138,9 +138,70 @@ let MainBasket = {
         this.html.bodyProducts = this.html.table.querySelector('.body-products-basket');
         this.html.headTableModal = this.html.table.querySelector('.head-table-modal');
         this.html.btnSubmitBasketModal = document.querySelector('.btn-submit-basket-modal');
+        this.html.inputNameCompany = document.getElementById('inputNameCompany');
+        this.html.inputAddressCompany = document.getElementById('inputAddressCompany');
+        this.html.inputTelCompany = document.getElementById('inputTelCompany');
+
+        this.html.btnSubmitBasketModal.addEventListener('click', MainBasket.postOrder)
 
     },
 
+    postOrder() {
+        let formPost = {
+            products: MainBasket.basket,
+            nameCompany: MainBasket.html.inputNameCompany.value,
+            inputVariantPay: document.getElementById('inputVariantPay').value,
+            inputAddressCompany: MainBasket.html.inputAddressCompany.value,
+            inputTelCompany: MainBasket.html.inputTelCompany.value,
+        }
+
+        let isInputsOk = true;
+
+        if (formPost.nameCompany.length < 1) {
+            isInputsOk = false;
+            MainBasket.html.inputNameCompany.classList.add('is-invalid');
+        } else {
+            MainBasket.html.inputNameCompany.classList.remove('is-invalid');
+        }
+
+        if (formPost.inputAddressCompany.length < 1) {
+            isInputsOk = false;
+            MainBasket.html.inputAddressCompany.classList.add('is-invalid');
+        } else {
+            MainBasket.html.inputAddressCompany.classList.remove('is-invalid');
+        }
+
+        if (formPost.inputTelCompany.length < 1) {
+            isInputsOk = false;
+            MainBasket.html.inputTelCompany.classList.add('is-invalid');
+        } else {
+            MainBasket.html.inputTelCompany.classList.remove('is-invalid');
+        }
+
+        if (!isInputsOk) {
+            return;
+        }
+
+        MainBasket.html.btnSubmitBasketModal.setAttribute('disabled', 'disabled');
+
+        fetch('https://webhook.site/e961d78b-687a-4377-9f7a-82c2bf3a3d6c', {
+            method: 'POST',
+            body: JSON.stringify(formPost),
+            headers: {'content-type': 'application/json'}
+        })
+            .then(function () {
+
+                MainBasket.html.btnSubmitBasketModal.removeAttribute('disabled');
+
+                $('#staticBackdrop').one('hidden.bs.modal', function (e) {
+                    $('#thankYouModal').modal('show');
+                });
+
+                $('#staticBackdrop').modal('hide');
+
+            })
+            .catch(alert);
+    },
 
     drawTable() {
         isEmpty(MainBasket.basket);
@@ -148,12 +209,12 @@ let MainBasket = {
         function isEmpty(basket) {
             for (let prop in basket) {
                 MainBasket.html.headTableModal.classList.remove('d-none');
-                MainBasket.html.btnSubmitBasketModal.classList.remove('disabled');
+                MainBasket.html.btnSubmitBasketModal.removeAttribute('disabled');
                 return false;
             }
             MainBasket.html.headTableModal.classList.add('d-none');
-            MainBasket.html.btnSubmitBasketModal.classList.add('disabled');
-            MainBasket.html.bodyProducts.insertAdjacentHTML('beforeend', `<h5 class="notification-select-products mt-4">Корзина пуста. Выберите товары.</h5>`)
+            MainBasket.html.btnSubmitBasketModal.setAttribute('disabled', 'disabled');
+            MainBasket.html.bodyProducts.insertAdjacentHTML('beforeend', `<strong class="notification-select-products mt-4">Нет товаров добавленных в корзину.</strong>`)
             return true;
         }
 
@@ -169,7 +230,7 @@ let MainBasket = {
                 <td class="name-product">${indexProduct.name}</td>
                 <td class="code-product">${indexProduct.code}</td>
                 <td class="price-product">${indexProduct.price}</td>
-                <td class="quantity-product"><input class="quantity" readonly type="number" value="${indexProduct.count}"></td>
+                <td class="quantity-product">${indexProduct.count}</td>
                 <td class="price-product">${indexProduct.subtotal}</td>
             </tr>`;
 

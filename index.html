@@ -1,13 +1,9 @@
-
 <!doctype html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="style/project_style.css" rel="stylesheet">
-
-
     <title>Wholesale</title>
 </head>
 <body>
@@ -15,7 +11,8 @@
     <nav class="navbar navbar-light bg-light fixed-top">
         <a class="navbar-brand"><h3 class="name-company">Название компании</h3></a>
         <form class="form-inline">
-            <input class="form-control mr-sm-2 input-search-article" type="search" placeholder="Поиск" aria-label="Search" value="">
+            <input class="form-control mr-sm-2 input-search-article" type="search" placeholder="Поиск"
+                   aria-label="Search" value="">
             <div class="input-group mr-sm-2">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Сумма заказа</span>
@@ -28,8 +25,7 @@
             </button>
         </form>
     </nav>
-
-    <table class="table table-products">
+    <table class="table table-products" style="margin-top: 6rem">
         <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -39,101 +35,123 @@
             <th scope="col">Количество</th>
         </tr>
         </thead>
-        <tbody class="body-products">
-        <!--<tr class="product">
-            <th scope="row" class="index"></th>
-            <td class="name-product"></td>
-            <td class="code-product"></td>
-            <td class="price-product"></td>
-            <td class="quantity-product"><input type="number" value="0"></td>
-        </tr>-->
-
-
-        </tbody>
+        <tbody class="body-products"></tbody>
     </table>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header mb-2">
+                <h5 class="modal-title" id="staticBackdropLabel">Заказ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mb-4">
+                <table class="table table-products-basket mt-0 mb-4">
+                    <thead class="thead-dark head-table-modal">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Артикул</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Количество</th>
+                        <th scope="col">Итого</th>
+                    </tr>
+                    </thead>
+                    <tbody class="body-products-basket"></tbody>
+                </table>
 
-
-
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-xl">
-            <div class="modal-content">
-                <div class="modal-header mb-4">
-                    <h5 class="modal-title" id="staticBackdropLabel">Заказ</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="form-row">
+                    <div class="form-group mb-4 col-4">
+                        <label for="inputSumOrder">Сумма заказа</label>
+                        <input type="tel" id="inputSumOrder" readonly aria-label="First name"
+                               class="form-control total-price-order" value="">
+                    </div>
                 </div>
-                <div class="modal-body mb-4">
-                    <table class="table table-products-basket mt-0 mb-0">
-                        <thead class="thead-dark head-table-modal">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Название</th>
-                            <th scope="col">Артикул</th>
-                            <th scope="col">Цена</th>
-                            <th scope="col">Количество</th>
-                            <th scope="col">Итого</th>
 
-                        </tr>
-                        </thead>
-                        <tbody class="body-products-basket">
-                        <!--<tr class="product">
-                            <th scope="row" class="index"></th>
-                            <td class="name-product"></td>
-                            <td class="code-product"></td>
-                            <td class="price-product"></td>
-                            <td class="quantity-product"><input type="number" value="0"></td>
-                        </tr>-->
-                        </tbody>
-                    </table>
+                <div class="form-row">
+                    <div class="form-group mb-4 col-4">
+                        <label for="inputNameCompany">Название компании</label>
+                        <input type="text" class="form-control" id="inputNameCompany" name="nameCompany">
+                        <div class="invalid-tooltip">
+                            Введите название компании
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4 col-4">
+                        <label for="inputTelCompany">Телефон</label>
+                        <input type="tel" class="form-control" id="inputTelCompany" placeholder="+375"
+                               name="telCompany">
+                        <div class="invalid-tooltip">
+                            Введите телефон
+                        </div>
+                    </div>
                 </div>
-                <form action="#">
 
-                        <div class="form-group mb-4 col-4">
-                            <label for="inputSumOrder">Сумма заказа:</label>
-                            <input type="tel" id="inputSumOrder" readonly aria-label="First name"
-                                   class="form-control total-price-order" value="">
-
+                <div class="form-row">
+                    <div class="form-group mb-4 col-4">
+                        <label for="inputAddressCompany">Адрес получателя</label>
+                        <input type="text" class="form-control" id="inputAddressCompany" name="addressCompany">
+                        <div class="invalid-tooltip">
+                            Введите адрес
                         </div>
+                    </div>
 
-
-                        <div class="form-group mb-4 col-4">
-                            <label for="inputNameCompany">Название компании</label>
-                            <input type="text" class="form-control" id="inputNameCompany" placeholder="">
-                        </div>
-
-
-
-                        <div class="form-group mb-4 col-4">
-                            <label for="inputVariantPay">Выберите способ оплаты:</label>
-                            <select id="inputVariantPay" class="form-control">
-                                <option selected>Безналичные рассчёт</option>
-                                <option>Наличные</option>
-                                <option>Отсрочка платежа/Безнал</option>
-                                <option>Отсрочка платежа/Наличные</option>
-                            </select>
-                        </div>
-
-
-
-
-
-                </form>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-primary btn-submit-basket-modal" value="Submit">Подтвердить</button>
-
+                    <div class="form-group mb-4 col-4">
+                        <label for="inputVariantPay">Выберите способ оплаты</label>
+                        <select id="inputVariantPay" class="form-control" name="variantPayment">
+                            <option selected value="cashless">Безналичные рассчёт</option>
+                            <option value="cash">Наличные</option>
+                            <option value="defermentCashless">Отсрочка платежа/Безнал</option>
+                            <option value="defermentCash">Отсрочка платежа/Наличные</option>
+                        </select>
+                    </div>
                 </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary btn-submit-basket-modal">Подтвердить</button>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="thankYouModal" tabindex="-1" role="dialog" aria-labelledby="thankYouModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="thankYouModalLabel">Спасибо за заказ!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ваш заказ был отправлен. Мы скоро свяжемся с вами.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 
 <script src="js/my.js"></script>
 </body>
