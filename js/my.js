@@ -1,4 +1,6 @@
 'use strict'
+
+const URL_PRODUCTS_JSON = 'https://chatcleaner-bot.s3.eu-west-1.amazonaws.com/product.json';
 let List = {
     allProducts: [],
 
@@ -16,14 +18,14 @@ let List = {
         this.html.table = document.querySelector('.table-products');
         this.html.bodyProducts = this.html.table.querySelector('.body-products');
 
-        fetch('data.json').then((response) => response.json()).then(function (responseObject) {
+        fetch(URL_PRODUCTS_JSON).then((response) => response.json()).then(function (responseObject) {
 
             responseObject.data.forEach(function (product, i) {
 
                 let indexProduct = {
                     name: product[0],
                     code: product[1],
-                    price: product[2].replace(new RegExp('^0+'), ''),
+                    price: (typeof product[2] === "string" && product[2].substr(0,1) === '0') ? product[2].replace(new RegExp('^0+'), '') : product[2],
                     htmlElement: null
                 }
 
