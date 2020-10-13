@@ -203,6 +203,7 @@ let MainBasket = {
 
             })
             .catch(alert);
+        MainBasket.html.btnSubmitBasketModal.removeAttribute('disabled');
     },
 
     drawTable() {
