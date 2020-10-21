@@ -186,7 +186,7 @@ let MainBasket = {
 
         MainBasket.html.btnSubmitBasketModal.setAttribute('disabled', 'disabled');
 
-        fetch('https://wholesale-app-updater.herokuapp.com/api/new-order', {
+        fetch('http://localhost:3000/api/new-order', {
             method: 'POST',
             body: JSON.stringify(formPost),
             headers: {'content-type': 'application/json'}
