@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,18 +12,18 @@
          style="max-width: 71rem;">
         <a class="navbar-brand mb-4 mb-md-0"><h3 class="name-company">Trade</h3></a>
         <form class="form-inline">
-            <input class="form-control mr-sm-2 input-search-article mb-4 mb-md-0" type="search" placeholder="Поиск"
+            <input class="form-control mr-sm-2 input-search-article mb-4 mb-md-0" type="search" placeholder="Search"
                    aria-label="Search" value="">
             <div class="input-group mr-sm-2 mb-4 mb-md-0">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Сумма заказа</span>
+                    <span class="input-group-text">Order costs</span>
                 </div>
                 <input type="tel" readonly aria-label="First name" class="form-control total-price" value="">
             </div>
 
             <button type="button" class="btn btn-outline-light mb-4 mb-md-0" data-toggle="modal"
                     data-target="#staticBackdrop">
-                Оформить
+                Cart
             </button>
         </form>
     </nav>
@@ -31,10 +31,10 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Название</th>
-            <th scope="col">Артикул</th>
-            <th scope="col">Цена</th>
-            <th scope="col">Количество</th>
+            <th scope="col">Title</th>
+            <th scope="col">Article</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
         </tr>
         </thead>
         <tbody class="body-products"></tbody>
@@ -47,7 +47,7 @@
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header mb-2">
-                <h5 class="modal-title" id="staticBackdropLabel">Заказ</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Order</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -57,11 +57,11 @@
                     <thead class="thead-dark head-table-modal">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Артикул</th>
-                        <th scope="col">Цена</th>
-                        <th scope="col">Количество</th>
-                        <th scope="col">Итого</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Article</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Subtotal</th>
                     </tr>
                     </thead>
                     <tbody class="body-products-basket"></tbody>
@@ -69,7 +69,7 @@
 
                 <div class="form-row">
                     <div class="form-group mb-4 col-4">
-                        <label for="inputSumOrder">Сумма заказа</label>
+                        <label for="inputSumOrder">Total</label>
                         <input type="tel" id="inputSumOrder" readonly aria-label="First name"
                                class="form-control total-price-order" value="">
                     </div>
@@ -77,47 +77,47 @@
 
                 <div class="form-row">
                     <div class="form-group mb-4 col-4">
-                        <label for="inputNameCompany">Название компании</label>
+                        <label for="inputNameCompany">Company name</label>
                         <input type="text" class="form-control" id="inputNameCompany" name="nameCompany">
                         <div class="invalid-tooltip">
-                            Введите название компании
+                            Enter your company name
                         </div>
                     </div>
 
                     <div class="form-group mb-4 col-4">
-                        <label for="inputTelCompany">Телефон</label>
+                        <label for="inputTelCompany">Phone</label>
                         <input type="tel" class="form-control" id="inputTelCompany" placeholder="+375"
                                name="telCompany">
                         <div class="invalid-tooltip">
-                            Введите телефон
+                            Enter your phone number
                         </div>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group mb-4 col-4">
-                        <label for="inputAddressCompany">Адрес получателя</label>
+                        <label for="inputAddressCompany">Address of the recipient</label>
                         <input type="text" class="form-control" id="inputAddressCompany" name="addressCompany">
                         <div class="invalid-tooltip">
-                            Введите адрес
+                            Enter the address
                         </div>
                     </div>
 
                     <div class="form-group mb-4 col-4">
-                        <label for="inputVariantPay">Выберите способ оплаты</label>
+                        <label for="inputVariantPay">Choose your preferred method of payment</label>
                         <select id="inputVariantPay" class="form-control" name="variantPayment">
-                            <option selected value="Cashless">Безналичные рассчёт</option>
-                            <option value="Cash">Наличные</option>
-                            <option value="Deferment Cashless">Отсрочка платежа/Безнал</option>
-                            <option value="Deferment Cash">Отсрочка платежа/Наличные</option>
+                            <option selected value="Cashless">Cashless</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Deferment Cashless">Deferment/Cashless</option>
+                            <option value="Deferment Cash">Deferment/Cash</option>
                         </select>
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary btn-submit-basket-modal">Подтвердить</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-submit-basket-modal">Submit</button>
             </div>
         </div>
     </div>
@@ -130,16 +130,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="thankYouModalLabel">Спасибо за заказ!</h5>
+                <h5 class="modal-title" id="thankYouModalLabel">Thank you for your order!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Ваш заказ был отправлен. Мы скоро свяжемся с вами.</p>
+                <p>Your order has been sent. We will be in contact again shortly.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

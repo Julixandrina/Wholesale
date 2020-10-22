@@ -217,7 +217,7 @@ let MainBasket = {
             }
             MainBasket.html.headTableModal.classList.add('d-none');
             MainBasket.html.btnSubmitBasketModal.setAttribute('disabled', 'disabled');
-            MainBasket.html.bodyProducts.insertAdjacentHTML('beforeend', `<strong class="notification-select-products mt-4">Нет товаров добавленных в корзину.</strong>`)
+            MainBasket.html.bodyProducts.insertAdjacentHTML('beforeend', `<strong class="notification-select-products mt-4">Your Cart is emptу.</strong>`)
             return true;
         }
 
